@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :api
 
   has_many :document
+  has_many :invite
 end
