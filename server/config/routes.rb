@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "api/documents/:user_id", to: "document#index", as: :documents
+  post "api/documents", to: "document#create", as: :documents_create
 end
