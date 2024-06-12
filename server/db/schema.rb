@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_12_133342) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_12_134323) do
   create_table "devise_api_tokens", force: :cascade do |t|
     t.string "resource_owner_type", null: false
     t.bigint "resource_owner_id", null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_12_133342) do
 
   create_table "documents", force: :cascade do |t|
     t.string "name"
-    t.integer "owner_id"
+    t.integer "user_id"
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
