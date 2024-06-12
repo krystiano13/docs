@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get "api/documents/:user_id", to: "document#index", as: :documents
   post "api/documents", to: "document#create", as: :documents_create
   patch "api/documents/:id", to: "document#update", as: :documents_update
+  delete "api/documents/:id", to: "document#destroy", as: :documents_destroy
 end

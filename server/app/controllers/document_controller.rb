@@ -47,6 +47,18 @@ class DocumentController < ApplicationController
     end
 
     def destroy
+        @document = Document.find(params[:id])
+
+        if @document.present?
+            @document.destroy
+            return render json: {
+                message: "Document deleted successfully"
+            }, status: :ok
+        else
+            return render json: {
+                :errors => ["Document not found"]
+            }, status: 404
+        end
     end
 
     private 
