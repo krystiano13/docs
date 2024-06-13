@@ -7,3 +7,7 @@
 *::after {
   font-family: "Montserrat", sans-serif;
 }
+
+.violet-shadow {
+  box-shadow: rgba(198, 129, 216, 0.2) 0px 2px 8px 0px;
+}
