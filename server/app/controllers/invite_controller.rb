@@ -30,6 +30,25 @@ class InviteController < ApplicationController
     end
 
     def update
+        @invite = Invite.where(id: params[:id])
+
+        if @invite.present?
+            begin
+                @invite.update!(invite_params)
+                return render json: {
+                    :message => "Invite updated successfully",
+                    :invite => @invite
+                }, status: :ok
+            rescue
+                return render json: {
+                    :errors => @invite.errors
+                }, status: :unprocessable_entity
+            end
+        else
+            return render json: {
+                :errors => Array.new("Invite not found")
+            }, status: 404
+        end
     end
 
     def destroy

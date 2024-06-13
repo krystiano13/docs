@@ -16,4 +16,6 @@ Rails.application.routes.draw do
 
   get "api/invites/:user_id", to: "invite#index", as: :invites
   post "api/invites", to: "invite#create", as: :invites_create
+  patch "api/invites/:id", to: "invite#update", as: :invites_update
+  delete "api/invites/:id", to: "invite#destroy", as: :invites_destroy
 end
