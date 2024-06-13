@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   post "api/documents", to: "document#create", as: :documents_create
   patch "api/documents/:id", to: "document#update", as: :documents_update
   delete "api/documents/:id", to: "document#destroy", as: :documents_destroy
+
+  get "api/invites/:user_id", to: "invite#index", as: :invites
 end
