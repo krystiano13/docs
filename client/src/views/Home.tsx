@@ -1,8 +1,9 @@
+import { motion } from "framer-motion";
 import hero from "../assets/images/hero.png";
 
 export function Home() {
   return (
-    <div className="w-[100vw] h-[100vh] flex flex-col-reverse md:flex-row justify-around items-center">
+    <div className="overflow-x-hidden w-[100vw] h-[100vh] flex flex-col-reverse md:flex-row justify-around items-center">
       <section className="w-3/5 h-full flex flex-col gap-8 items-center md:items-start justify-center p-8 md:p-12">
         <h1 className="text-6xl md:text-8xl text-center md:text-left font-medium">
           Docs Online
@@ -15,7 +16,18 @@ export function Home() {
         </button>
       </section>
       <section className="w-2/5 h-full flex items-center justify-center">
-        <img
+        <motion.img
+          animate={{
+            position: ["fixed", "static"],
+            x: [500, 0],
+            scale: [0.5, 1],
+          }}
+          transition={{
+            type: "spring",
+            duration: 0.25,
+            ease: "easeInOut",
+            bounce: 0.25,
+          }}
           className="brightness-90"
           src={hero}
           alt="hero image with documents"
