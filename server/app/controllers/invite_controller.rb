@@ -52,6 +52,18 @@ class InviteController < ApplicationController
     end
 
     def destroy
+        @invite = Invite.find(params[:id])
+
+        if @invite.present?
+            @invite.destroy
+            return render json: {
+                :message => "Invite deleted successfully"
+            }, status: :ok
+        else
+            return render json: {
+                :errors => Array.new("Invite not found")
+            }, status: 404
+        end
     end
 
     private 
