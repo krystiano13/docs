@@ -14,11 +14,29 @@ class InviteController < ApplicationController
     end
     
     def create
+        @invite = Invite.new(invite_params)
+
+        begin
+            @invite.save!
+            return render json: {
+                :message => "Invite created successfully",
+                :invite => @invite
+            }, status: :ok
+        rescue
+            return render json: {
+                :errors => @invite.errors
+            }, status: :unprocessable_entity
+        end
     end
 
     def update
     end
 
     def destroy
+    end
+
+    private 
+    def invite_params
+        params.require(:invite).permit(:document_id, :user_id, :role)
     end
 end
