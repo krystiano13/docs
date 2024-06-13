@@ -41,7 +41,7 @@ export function Home() {
             bounce: 0.5,
             delay: 0.3,
           }}
-          className="cursor-pointer p-2 pl-6 pr-6 text-xl text-white bg-violet-600 hover:bg-violet-500"
+          className="transition-colors cursor-pointer p-2 pl-6 pr-6 text-xl text-white bg-violet-600 hover:bg-violet-500"
         >
           Get Started
         </motion.button>
@@ -53,6 +53,7 @@ export function Home() {
             position: ["fixed", "static"],
             x: [500, 0],
             scale: [0, 1],
+            y: [-15, 15],
           }}
           transition={{
             type: "spring",
@@ -60,6 +61,11 @@ export function Home() {
             ease: "easeInOut",
             bounce: 0.25,
             delay: 0.6,
+            y: {
+              repeat: Infinity,
+              repeatType: "reverse",
+              duration: 2,
+            },
           }}
           className="brightness-90"
           src={hero}
