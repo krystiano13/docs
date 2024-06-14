@@ -6,6 +6,12 @@ export function Navbar() {
       <NavLink className="text-lg font-medium" to="/">
         Home
       </NavLink>
+      <NavLink className="text-lg font-medium" to="/login">
+        Login
+      </NavLink>
+      <NavLink className="text-lg font-medium" to="/register">
+        Register
+      </NavLink>
     </nav>
   );
 }
