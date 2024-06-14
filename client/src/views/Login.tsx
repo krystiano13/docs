@@ -1,9 +1,23 @@
+import { motion } from "framer-motion";
+
 export function Login() {
   return (
-    <div className="w-[100vw] h-[100vh] flex flex-col gap-5 items-center justify-center">
-      <h2 className="font-semibold text-3xl">Log In</h2>
-      <form className="p-8 w-[90vw] md:w-96 pt-12 pb-12 rounded-lg violet-shadow bg-violet-50 flex flex-col justify-start gap-6">
-        <div className="flex flex-col gap-3">
+    <div className="w-[100vw] h-[100vh] flex flex-col gap-8 items-center justify-center">
+      <motion.h2 animate={{ opacity: [0, 1] }} className="font-semibold text-4xl">Log In</motion.h2>
+      <motion.form
+        animate={{ scale: [0.5, 1] }}
+        className="p-8 w-[90vw] md:w-96 pt-12 pb-12 rounded-lg violet-shadow bg-violet-50 flex flex-col justify-start gap-6"
+      >
+        <motion.div
+          transition={{
+            type: "spring",
+            bounce: 0.3,
+            duration: 0.25,
+            delay: 0.15,
+          }}
+          animate={{ scale: [0.5, 1], opacity: [0, 1] }}
+          className="flex flex-col gap-3"
+        >
           <label className="text-lg font-medium" htmlFor="email">
             Email Address
           </label>
@@ -14,8 +28,17 @@ export function Login() {
             required
             name="email"
           />
-        </div>
-        <div className="flex flex-col gap-3">
+        </motion.div>
+        <motion.div
+          transition={{
+            type: "spring",
+            bounce: 0.3,
+            duration: 0.25,
+            delay: 0.3,
+          }}
+          animate={{ scale: [0.5, 1], opacity: [0, 1] }}
+          className="flex flex-col gap-3"
+        >
           <label className="text-lg font-medium" htmlFor="password">
             Password
           </label>
@@ -26,14 +49,21 @@ export function Login() {
             required
             name="password"
           />
-        </div>
-        <button
+        </motion.div>
+        <motion.button
+          transition={{
+            type: "spring",
+            bounce: 0.3,
+            duration: 0.25,
+            delay: 0.45,
+          }}
+          animate={{ scale: [0.5, 1], opacity: [0, 1] }}
           className="text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm"
           type="submit"
         >
           Log In
-        </button>
-      </form>
+        </motion.button>
+      </motion.form>
     </div>
   );
 }
