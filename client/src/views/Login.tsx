@@ -27,6 +27,12 @@ export function Login() {
             name="password"
           />
         </div>
+        <button
+          className="text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm"
+          type="submit"
+        >
+          Log In
+        </button>
       </form>
     </div>
   );
