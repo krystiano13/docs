@@ -7,19 +7,22 @@ import { Register } from "./views/Register";
 
 //components
 import { Navbar } from "./components/Navbar";
+import { AuthContextProvider } from "./contexts/authContext";
 
 function App() {
   return (
-    <div className="w-[100vw] h-[100vh] bg-violet-100">
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <AuthContextProvider>
+      <div className="w-[100vw] h-[100vh] bg-violet-100">
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </AuthContextProvider>
   );
 }
 
