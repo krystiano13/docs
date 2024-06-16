@@ -44,10 +44,10 @@ export function Login() {
   }
 
   return (
-    <div className="w-[100vw] h-[100vh] flex flex-col gap-8 items-center justify-center">
+    <div className="w-[100vw] h-[100vh] flex flex-col gap-5 md:gap-8 items-center justify-center">
       <motion.h2
         animate={{ opacity: [0, 1] }}
-        className="font-semibold text-4xl"
+        className="font-semibold text-3xl md:text-4xl"
       >
         Log In
       </motion.h2>
@@ -55,7 +55,10 @@ export function Login() {
       <div id="errors">
         {errors.map((item) => {
           return (
-            <p className="text-red-500 text-center" key={item}>
+            <p
+              className="text-red-500 text-center text-sm md:text-base"
+              key={item}
+            >
               {item}
             </p>
           );
