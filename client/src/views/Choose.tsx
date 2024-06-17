@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState } from "react";
+import { FileButton } from "../components/FIleButton";
 
 export function Choose() {
     const [option, setOption] = useState<"your"|"shared">("your");
@@ -18,13 +19,14 @@ export function Choose() {
             </section>
             <section 
                 id="files" 
-                className="pt-8 flex justify-center md:justify-start w-[100vw] h-auto overflow-y-auto"
+                className="pt-8 flex justify-center items-start gap-6 md:justify-start w-[100vw] min-h-80 h-auto overflow-y-auto"
             >
                 <button 
                     className="rounded-lg hover:bg-violet-400 transition-colors bg-violet-500 text-white text-xl font-bold min-w-64 p-5 pl-8 pr-8"
                 >
                     +
                 </button>
+                <FileButton id={1} title="Test" />
             </section>
         </div>
     )
