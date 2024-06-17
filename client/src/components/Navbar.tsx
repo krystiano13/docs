@@ -30,9 +30,12 @@ export function Navbar() {
         </>
       )}
       {userContext.user && (
-        <button onClick={logOut} className="text-lg font-medium">
-          Log Out
-        </button>
+        <>
+          <NavLink className="text-lg font-medium" to="/choose">Your Docs</NavLink>
+          <button onClick={logOut} className="text-lg font-medium">
+            Log Out
+          </button>
+        </>
       )}
     </nav>
   );
