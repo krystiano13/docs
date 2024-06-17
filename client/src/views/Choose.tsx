@@ -3,8 +3,8 @@ import { useState } from "react"
 export function Choose() {
     const [option, setOption] = useState<"your"|"shared">("your");
     return (
-        <div className="w-[100vw] h-[100vh] p-6">
-            <section className="pt-20 flex items-center" id="buttons">
+        <div className="w-full h-full pt-6 p-0 md:p-6 flex flex-col">
+            <section className="pt-20 justify-center md:justify-start flex items-center" id="buttons">
                 <button 
                     className={`${option == "your" && "text-white bg-violet-500"} font-medium text-lg p-2 pl-6 pr-6 border-violet-500 border-b-2 border-b-solid`} 
                     onClick={() => setOption("your")}>
@@ -18,7 +18,7 @@ export function Choose() {
             </section>
             <section 
                 id="files" 
-                className="pt-8 flex flex-wrap justify-start gap-6 w-[100vw] h-auto overflow-y-auto"
+                className="pt-8 flex justify-center md:justify-start w-[100vw] h-auto overflow-y-auto"
             >
                 <button 
                     className="rounded-lg hover:bg-violet-400 transition-colors bg-violet-500 text-white text-xl font-bold min-w-64 p-5 pl-8 pr-8"
