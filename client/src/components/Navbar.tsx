@@ -6,8 +6,6 @@ export function Navbar() {
   const userContext = useContext(AuthContext);
   const navigate = useNavigate();
 
-  console.log(userContext);
-
   function logOut() {
     userContext.setUser(null);
     localStorage.removeItem("refresh_token");

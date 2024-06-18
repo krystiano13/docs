@@ -41,7 +41,7 @@ export function Choose() {
                 >
                     +
                 </button>
-                <FileButton id={1} title="Test" />
+                <FileButton shared={true} user="Admin" id={1} title="Test" />
             </motion.section>
         </div>
     )
