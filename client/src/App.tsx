@@ -5,6 +5,7 @@ import { Home } from "./views/Home";
 import { Login } from "./views/Login";
 import { Register } from "./views/Register";
 import { Choose } from "./views/Choose";
+import { Workspace } from "./views/Workspace";
 
 //components
 import { Navbar } from "./components/Navbar";
@@ -21,6 +22,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/choose" element={<Choose />} />
+            <Route path="/workspace" element={<Workspace />} />
           </Routes>
         </BrowserRouter>
       </div>
