@@ -2,8 +2,18 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FileButton } from "../components/FIleButton";
 
+interface File {
+  id: number;
+  title: string;
+  shared: boolean;
+  user?: string;
+}
+
 export function Choose() {
   const [option, setOption] = useState<"your" | "shared">("your");
+  const [files, setFiles] = useState<File[]>([]);
+  const [sharedFiles, setSharedFiles] = useState<File[]>([]);
+
   return (
     <div className="w-full h-full overflow-x-hidden pt-6 p-0 md:p-6 flex flex-col">
       <motion.section
@@ -57,7 +67,23 @@ export function Choose() {
         >
           +
         </motion.button>
-        <FileButton shared={true} user="Admin" id={1} title="Test" />
+        {option == "your"
+          ? files.map((item) => (
+              <FileButton
+                shared={item.shared}
+                user={item.user}
+                id={item.id}
+                title={item.title}
+              />
+            ))
+          : sharedFiles.map((item) => (
+              <FileButton
+                shared={item.shared}
+                user={item.user}
+                id={item.id}
+                title={item.title}
+              />
+            ))}
       </section>
     </div>
   );
