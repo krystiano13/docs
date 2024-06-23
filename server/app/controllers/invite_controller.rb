@@ -2,15 +2,17 @@ class InviteController < ApplicationController
     def index
         @invites = Invite.where(user_id: params[:user_id])
         @user = User.find_by(id: params[:user_id])
+        @document = Document.find_by(user_id: params[:user_id])
 
         if @invites.present?
             return render json: {
                 :invites => @invites,
-                :user => @user
+                :user => @user,
+                :document => @document
             }, status: :ok
         else
             return render json: {
-                :errors => Array.new("Invites not found")
+                :invites => []
             }, status: 404
         end
     end
