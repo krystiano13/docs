@@ -1,10 +1,12 @@
 class InviteController < ApplicationController
     def index
         @invites = Invite.where(user_id: params[:user_id])
+        @user = User.find_by(id: params[:user_id])
 
         if @invites.present?
             return render json: {
-                :invites => @invites
+                :invites => @invites,
+                :user => @user
             }, status: :ok
         else
             return render json: {

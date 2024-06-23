@@ -1,13 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FileButton } from "../components/FIleButton";
+import type { File } from "../types";
 
-interface File {
-  id: number;
-  title: string;
-  shared: boolean;
-  user?: string;
-}
 
 export function Choose() {
   const [option, setOption] = useState<"your" | "shared">("your");

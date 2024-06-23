@@ -1,14 +1,6 @@
 import { useState } from "react";
 import { InviteCard } from "../components/InviteCard";
-
-interface Invite {
-    id: number;
-    user_id: number;
-    document_id: number;
-    role: string;
-    title: string;
-    user: string;
-}
+import type { Invite } from "../types";
 
 export function Invites() {
     const [invites, setInvites] = useState<Invite[]>([]);

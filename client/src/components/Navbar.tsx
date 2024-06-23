@@ -29,7 +29,12 @@ export function Navbar() {
       )}
       {userContext.user && (
         <>
-          <NavLink className="text-lg font-medium" to="/choose">Your Docs</NavLink>
+          <NavLink className="text-lg font-medium" to="/choose">
+            Your Docs
+          </NavLink>
+          <NavLink className="text-lg font-medium" to="/invites">
+            Invites
+          </NavLink>
           <button onClick={logOut} className="text-lg font-medium">
             Log Out
           </button>
