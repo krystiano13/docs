@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   post "api/invites", to: "invite#create", as: :invites_create
   patch "api/invites/:id", to: "invite#update", as: :invites_update
   delete "api/invites/:id", to: "invite#destroy", as: :invites_destroy
+
+  get "api/shares/:user_id", to: "share#index", as: :shares
 end
