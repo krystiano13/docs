@@ -6,6 +6,7 @@ import { Login } from "./views/Login";
 import { Register } from "./views/Register";
 import { Choose } from "./views/Choose";
 import { Workspace } from "./views/Workspace";
+import { Invites } from "./views/Invites";
 
 //components
 import { Navbar } from "./components/Navbar";
@@ -23,6 +24,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/choose" element={<Choose />} />
             <Route path="/workspace" element={<Workspace />} />
+            <Route path="/invites" element={<Invites />} />
           </Routes>
         </BrowserRouter>
       </div>
