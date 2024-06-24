@@ -23,7 +23,7 @@ export function Choose() {
       .then((data) => {
         if (data.documents) {
           const files: File[] = [];
-          data.documents.forEach((item:File) => {
+          data.documents.forEach((item: File) => {
             files.push({
               id: item.id,
               name: item.name,
@@ -35,6 +35,16 @@ export function Choose() {
           setFiles(files);
         }
       });
+
+    fetch(`http://127.0.0.1:3000/api/shares/1`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.user?.token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   }, []);
 
   return (

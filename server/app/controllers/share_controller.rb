@@ -9,7 +9,7 @@ class ShareController < ApplicationController
             end
 
             return render json: {
-                :documents => @documents
+                :documents => @documents,
             }, status: :ok
         else
             return render json: {
