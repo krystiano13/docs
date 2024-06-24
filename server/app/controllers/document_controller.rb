@@ -63,6 +63,6 @@ class DocumentController < ApplicationController
 
     private 
     def document_params
-       params.require(:document).permit(:name, :user_id, :content)
+       params.require(:document).permit(:name, :user_id, :content, :user)
     end
 end

@@ -33,6 +33,37 @@ class InviteController < ApplicationController
         end
     end
 
+    def acccept
+        @invite = Invite.find_by(document_id: params[:document_id], user_id: params[:user_id])
+        
+        if @invite.present?
+            begin
+                @document = Document.find_by(id: @invite.document_id)
+                @share = Share.new
+                @share.user_id = @invite.user_id
+                @share.owner_id = @document.user_id
+                @share.role = @invite.role
+                @share.document_id = @invite.document_id
+
+                @share.save!
+                @invite.destroy
+
+                return render json: {
+                    :message => "Invite accepted successfully",
+                    :share => @share
+                }, status: :ok
+            rescue
+                return render json: {
+                    :errors => Array.new("Invite could not be accepted")
+                }, status: :unprocessable_entity
+            end
+        else
+            return render json: {
+                :errors => Array.new("Invite not found")
+            }, status: 404
+        end
+    end
+
     def update
         @invite = Invite.where(id: params[:id])
 
