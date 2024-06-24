@@ -33,8 +33,8 @@ class InviteController < ApplicationController
         end
     end
 
-    def acccept
-        @invite = Invite.find_by(document_id: params[:document_id], user_id: params[:user_id])
+    def accept
+        @invite = Invite.find_by(id: params[:id])
         
         if @invite.present?
             begin

@@ -41,10 +41,35 @@ export function Invites() {
     }
   }, []);
 
+  async function handleAccept(id: number) {
+    await fetch(`http://127.0.0.1:3000/api/invites/accept/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.user?.token}`,
+      },
+    }).then((res) => {
+      if (res.status !== 200) {
+        alert("Server Error");
+      }
+      else {
+        const invites_array = [...invites];
+        setInvites(invites_array.filter(item => item.id !== id));
+      }
+
+      return res.json();
+    })
+    .then(data => console.log(data))
+  }
+
   return (
     <div className="w-full h-full gap-6 overflow-x-hidden pt-24 p-6 flex flex-col items-center">
       {invites.map((invite) => (
-        <InviteCard key={invite.id} {...invite} />
+        <InviteCard
+          accept={handleAccept}
+          key={invite.id}
+          invite={{ ...invite }}
+        />
       ))}
     </div>
   );
