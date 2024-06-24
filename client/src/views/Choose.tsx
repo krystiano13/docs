@@ -1,13 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import { FileButton } from "../components/FIleButton";
 import type { File } from "../types";
-
+import { AuthContext } from "../contexts/authContext";
 
 export function Choose() {
   const [option, setOption] = useState<"your" | "shared">("your");
   const [files, setFiles] = useState<File[]>([]);
   const [sharedFiles, setSharedFiles] = useState<File[]>([]);
+
+  const auth = useContext(AuthContext);
+
+  useEffect(() => {
+    fetch(`http://127.0.0.1:3000/api/documents/1`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${auth.user?.token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.documents) {
+          const files: File[] = [];
+          data.documents.forEach((item:File) => {
+            files.push({
+              id: item.id,
+              name: item.name,
+              shared: false,
+              user: auth.user?.email,
+            });
+          });
+
+          setFiles(files);
+        }
+      });
+  }, []);
 
   return (
     <div className="w-full h-full overflow-x-hidden pt-6 p-0 md:p-6 flex flex-col">
@@ -68,7 +96,7 @@ export function Choose() {
                 shared={item.shared}
                 user={item.user}
                 id={item.id}
-                title={item.title}
+                title={item.name}
               />
             ))
           : sharedFiles.map((item) => (
@@ -76,7 +104,7 @@ export function Choose() {
                 shared={item.shared}
                 user={item.user}
                 id={item.id}
-                title={item.title}
+                title={item.name}
               />
             ))}
       </section>

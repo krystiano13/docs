@@ -13,7 +13,7 @@ class ShareController < ApplicationController
             }, status: :ok
         else
             return render json: {
-                :shares => []
+                :documents => []
             }, status: 404
         end
     end

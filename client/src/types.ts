@@ -9,7 +9,7 @@ export interface Invite {
 
 export interface File {
   id: number;
-  title: string;
+  name: string;
   shared: boolean;
   user?: string;
 }
