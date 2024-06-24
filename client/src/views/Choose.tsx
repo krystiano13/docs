@@ -12,7 +12,7 @@ export function Choose() {
   const auth = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:3000/api/documents/1`, {
+    fetch(`http://127.0.0.1:3000/api/documents/${auth.user?.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export function Choose() {
         }
       });
 
-    fetch(`http://127.0.0.1:3000/api/shares/1`, {
+    fetch(`http://127.0.0.1:3000/api/shares/${auth.user?.id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,21 @@ export function Choose() {
       },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        if (data.documents) {
+          const files: File[] = [];
+          data.documents.forEach((item: File) => {
+            files.push({
+              id: item.id,
+              name: item.name,
+              shared: true,
+              user: "Test",
+            });
+          });
+
+          setSharedFiles(files);
+        }
+      });
   }, []);
 
   return (
