@@ -4,5 +4,6 @@ class Share < ApplicationRecord
 
     validates :user_id, presence: true
     validates :document_id, presence: true
-    validates :role, presence: true
+    validates :role, presence: true,
+    validates :owner_id, presence: true
 end
