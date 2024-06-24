@@ -4,9 +4,10 @@ import type { Invite } from "../types";
 interface Props {
   invite: Invite;
   accept: (id: number) => Promise<void>;
+  decline: (id: number) => Promise<void>;
 }
 
-export const InviteCard: React.FC<Props> = ({ invite, accept }) => {
+export const InviteCard: React.FC<Props> = ({ invite, accept, decline }) => {
   return (
     <motion.div
       animate={{ scale: [0.5, 1], opacity: [0, 1] }}
@@ -21,7 +22,10 @@ export const InviteCard: React.FC<Props> = ({ invite, accept }) => {
       >
         Accept
       </button>
-      <button className="font-medium text-lg text-white transition-colors hover:bg-red-400 bg-red-500 p-2 pl-6 pr-6 rounded-lg">
+      <button
+        onClick={() => decline(invite.id)}
+        className="font-medium text-lg text-white transition-colors hover:bg-red-400 bg-red-500 p-2 pl-6 pr-6 rounded-lg"
+      >
         Decline
       </button>
     </motion.div>
