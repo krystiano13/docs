@@ -65,7 +65,7 @@ export function Choose() {
 
   return (
     <>
-      {modal && <AddModal />}
+      {modal && <AddModal modal={modal} cancel={() => setModal(false)} />}
       <div className="w-full h-full overflow-x-hidden pt-6 p-0 md:p-6 flex flex-col">
         <motion.section
           transition={{
@@ -116,7 +116,7 @@ export function Choose() {
                   opacity: [0, 1],
                   position: ["fixed", "static"],
                 }}
-                onClick={() => setModal(prev => !prev)}
+                onClick={() => setModal((prev) => !prev)}
                 className="rounded-lg hover:bg-violet-400 transition-colors bg-violet-500 text-white text-xl font-bold min-w-64 p-5 pl-8 pr-8"
               >
                 +
