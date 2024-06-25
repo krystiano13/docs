@@ -13,6 +13,38 @@ export function Choose() {
 
   const auth = useContext(AuthContext);
 
+  async function createDocument(
+    e: React.FormEvent<HTMLFormElement>,
+    hide: () => void
+  ) {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+
+    await formData.append("user_id", auth.user?.id.toString() as string | Blob);
+    await formData.append("content", "" as string | Blob);
+    await formData.append("username", auth.user?.email as string | Blob);
+
+    await fetch(`http://127.0.0.1:3000/api/documents`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${auth.user?.token}`,
+      },
+      body: formData,
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.document) {
+          hide();
+          setFiles(data.document);
+        } else {
+          alert("Something went wrong");
+        }
+      });
+  }
+
   useEffect(() => {
     fetch(`http://127.0.0.1:3000/api/documents/${auth.user?.id}`, {
       method: "GET",
@@ -65,7 +97,13 @@ export function Choose() {
 
   return (
     <>
-      {modal && <AddModal modal={modal} cancel={() => setModal(false)} />}
+      {modal && (
+        <AddModal
+          create={createDocument}
+          modal={modal}
+          cancel={() => setModal(false)}
+        />
+      )}
       <div className="w-full h-full overflow-x-hidden pt-6 p-0 md:p-6 flex flex-col">
         <motion.section
           transition={{
