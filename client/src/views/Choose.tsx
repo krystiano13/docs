@@ -8,6 +8,7 @@ export function Choose() {
   const [option, setOption] = useState<"your" | "shared">("your");
   const [files, setFiles] = useState<File[]>([]);
   const [sharedFiles, setSharedFiles] = useState<File[]>([]);
+  const [modal, setModal] = useState<boolean>(false);
 
   const auth = useContext(AuthContext);
 
@@ -98,32 +99,25 @@ export function Choose() {
         id="files"
         className="pt-8 flex flex-col md:flex-row justify-center items-center md:items-start gap-6 md:justify-start w-[100vw] min-h-80 h-auto overflow-y-auto"
       >
-        <motion.button
-          transition={{
-            type: "spring",
-            bounce: 0.3,
-            duration: 0.25,
-            delay: 0.15,
-          }}
-          animate={{
-            scale: [0.5, 1],
-            opacity: [0, 1],
-            position: ["fixed", "static"],
-          }}
-          className="rounded-lg hover:bg-violet-400 transition-colors bg-violet-500 text-white text-xl font-bold min-w-64 p-5 pl-8 pr-8"
-        >
-          +
-        </motion.button>
-        {option == "your"
-          ? files.map((item) => (
-              <FileButton
-                shared={item.shared}
-                user={item.user}
-                id={item.id}
-                title={item.name}
-              />
-            ))
-          : sharedFiles.map((item) => (
+        {option == "your" ? (
+          <>
+            <motion.button
+              transition={{
+                type: "spring",
+                bounce: 0.3,
+                duration: 0.25,
+                delay: 0.15,
+              }}
+              animate={{
+                scale: [0.5, 1],
+                opacity: [0, 1],
+                position: ["fixed", "static"],
+              }}
+              className="rounded-lg hover:bg-violet-400 transition-colors bg-violet-500 text-white text-xl font-bold min-w-64 p-5 pl-8 pr-8"
+            >
+              +
+            </motion.button>
+            {files.map((item) => (
               <FileButton
                 shared={item.shared}
                 user={item.user}
@@ -131,6 +125,17 @@ export function Choose() {
                 title={item.name}
               />
             ))}
+          </>
+        ) : (
+          sharedFiles.map((item) => (
+            <FileButton
+              shared={item.shared}
+              user={item.user}
+              id={item.id}
+              title={item.name}
+            />
+          ))
+        )}
       </section>
     </div>
   );
