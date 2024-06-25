@@ -38,7 +38,15 @@ export function Choose() {
         console.log(data);
         if (data.document) {
           hide();
-          setFiles(data.document);
+          setFiles([
+            ...files,
+            {
+              id: data.document.id,
+              name: data.document.name,
+              shared: false,
+              user: auth.user?.email,
+            },
+          ]);
         } else {
           alert("Something went wrong");
         }
