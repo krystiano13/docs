@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export function Document() {
   const [invites, setInvites] = useState([]);
@@ -8,7 +9,8 @@ export function Document() {
         id="invites"
         className="w-[90vw] md:w-2/5 max-h-[50vh] flex flex-col gap-6"
       >
-        <div
+        <motion.div
+          animate={{ scale: [0, 1] }}
           id="invites_list"
           className="overflow-y-auto max-h-[50vh] bg-violet-50 w-full h-auto flex flex-col items-center rounded-lg violet-shadow gap-3 p-6"
         >
@@ -18,8 +20,17 @@ export function Document() {
               Cancel
             </button>
           </div>
-        </div>
-        <form className="p-8 w-full pt-12 pb-12 rounded-lg violet-shadow bg-violet-50 flex flex-col justify-start gap-6">
+        </motion.div>
+        <motion.form
+          transition={{
+            type: "spring",
+            bounce: 0.3,
+            duration: 0.25,
+            delay: 0.15,
+          }}
+          animate={{ scale: [0, 1] }}
+          className="p-8 w-full pt-12 pb-12 rounded-lg violet-shadow bg-violet-50 flex flex-col justify-start gap-6"
+        >
           <input
             className="text-lg transition p-2 focus:border-b-violet-300 border-b-violet-400 border-b-2 border-b-solid outline-none"
             type="email"
@@ -33,9 +44,16 @@ export function Document() {
           >
             Invite
           </button>
-        </form>
+        </motion.form>
       </section>
-      <section
+          <motion.section
+        transition={{
+          type: "spring",
+          bounce: 0.3,
+          duration: 0.25,
+          delay: 0.3,
+        }}
+        animate={{ scale: [0, 1] }}
         id="options"
         className="bg-violet-50 violet-shadow flex flex-col gap-6 items-center justify-center rounded-lg p-6 pt-12 pb-12"
       >
@@ -48,7 +66,7 @@ export function Document() {
         <button className="w-full text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm">
           Delete Document
         </button>
-      </section>
+      </motion.section>
     </div>
   );
 }
