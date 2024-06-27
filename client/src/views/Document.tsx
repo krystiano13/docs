@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export function Document() {
   const [invites, setInvites] = useState([]);
+  const [params, setParams] = useSearchParams();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!params.get("id")) {
+      navigate('/choose');
+    }
+  }, []);
+
   return (
     <div className="overflow-x-hidden w-[100vw] min-h-[100vh] flex flex-col md:flex-row justify-center gap-6 md:gap-0 md:justify-around items-center">
       <section
