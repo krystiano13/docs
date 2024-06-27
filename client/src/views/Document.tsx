@@ -2,9 +2,10 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../contexts/authContext";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import type { Invite } from "../types";
 
 export function Document() {
-  const [invites, setInvites] = useState([]);
+  const [invites, setInvites] = useState<Invite[]>([]);
   const [params, setParams] = useSearchParams();
 
   const navigate = useNavigate();
@@ -27,8 +28,14 @@ export function Document() {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        if(data.invites) {
+        if(data.invites && data.usernames) {
+          const array = [];
 
+          for(let i=0; i<data.invites.length; i++) {
+            array.unshift({ ...data.invites[i], user: data.usernames[i].email  });
+          }
+
+          setInvites(array);
         }
       })
     }

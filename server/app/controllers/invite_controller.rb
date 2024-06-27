@@ -22,15 +22,21 @@ class InviteController < ApplicationController
         @usernames = []
 
         if @invites.present?
-            @invites.each do |invite|
-                user = User.find_by(id: invite.user_id)
-                @usernames.unshift({ id: invite.id, email: user.email })
+            begin
+                @invites.each do |invite|
+                    user = User.find_by(id: invite.user_id)
+                    @usernames.unshift({ id: invite.id, email: user.email })
+                end
+    
+                return render json: {
+                    :invites => @invites,
+                    :usernames => @usernames
+                }, status: :ok
+            rescue
+                return render json: {
+                    :invites => []
+                }
             end
-
-            return render json: {
-                :invites => @invites,
-                :usernames => @usernames
-            }, status: :ok
         else
             return render json: {
                 :invites => []
