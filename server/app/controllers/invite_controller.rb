@@ -19,22 +19,18 @@ class InviteController < ApplicationController
 
     def get_by_doc
         @invites = Invite.where(document_id: params[:document_id])
+        @usernames = []
 
         if @invites.present?
-            begin
-                @invites.each do |invite|
-                    user = User.find_by(user_id: invite[:user_id])
-                    invite[:username] = user[:email]
-                end
-
-                return render json: {
-                    :invites => @invites
-                }, status: :ok
-            rescue
-                return render json: {
-                    :invites => []
-                } 
+            @invites.each do |invite|
+                user = User.find_by(id: invite.user_id)
+                @usernames.unshift({ id: invite.id, email: user.email })
             end
+
+            return render json: {
+                :invites => @invites,
+                :usernames => @usernames
+            }, status: :ok
         else
             return render json: {
                 :invites => []

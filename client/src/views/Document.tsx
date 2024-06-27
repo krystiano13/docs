@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../contexts/authContext";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -7,10 +8,29 @@ export function Document() {
   const [params, setParams] = useSearchParams();
 
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     if(!params.get("id")) {
       navigate('/choose');
+    }
+
+    else {
+      const id = params.get("id") as string;
+
+      fetch(`http://127.0.0.1:3000/api/invites/by_doc_id/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${auth.user?.token}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if(data.invites) {
+
+        }
+      })
     }
   }, []);
 
