@@ -27,7 +27,6 @@ export function Document() {
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         if(data.invites && data.usernames) {
           const array = [];
 
@@ -52,12 +51,16 @@ export function Document() {
           id="invites_list"
           className="overflow-y-auto max-h-[50vh] bg-violet-50 w-full h-auto flex flex-col items-center rounded-lg violet-shadow gap-3 p-6"
         >
-          <div className="flex items-center gap-2 justify-between w-full">
-            <h3 className="md:text-lg font-medium">InvitedUser@example.com</h3>
-            <button className="text-white font-medium hover:bg-red-400 transition-colors bg-red-500 p-2 pl-6 pr-6 rounded-sm">
-              Cancel
-            </button>
-          </div>
+          {
+            invites.map(item => (
+              <div key={item.id} className="flex items-center gap-2 justify-between w-full">
+                <h3 className="md:text-lg font-medium">{ item.user }</h3>
+                <button className="text-white font-medium hover:bg-red-400 transition-colors bg-red-500 p-2 pl-6 pr-6 rounded-sm">
+                  Cancel
+                </button>
+              </div>
+            ))
+          }
         </motion.div>
         <motion.form
           transition={{
@@ -84,7 +87,7 @@ export function Document() {
           </button>
         </motion.form>
       </section>
-          <motion.section
+      <motion.section
         transition={{
           type: "spring",
           bounce: 0.3,
