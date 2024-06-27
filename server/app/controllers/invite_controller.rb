@@ -16,6 +16,31 @@ class InviteController < ApplicationController
             }, status: 404
         end
     end
+
+    def get_by_doc
+        @invites = Invite.where(document_id: params[:document_id])
+
+        if @invites.present?
+            begin
+                @invites.each do |invite|
+                    user = User.find_by(user_id: invite[:user_id])
+                    invite[:username] = user[:email]
+                end
+
+                return render json: {
+                    :invites => @invites
+                }, status: :ok
+            rescue
+                return render json: {
+                    :invites => []
+                } 
+            end
+        else
+            return render json: {
+                :invites => []
+            }
+        end
+    end
     
     def create
         @invite = Invite.new(invite_params)
