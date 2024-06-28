@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router";
 
 interface Props {
   id: number;
@@ -8,8 +9,15 @@ interface Props {
 }
 
 export const FileButton: React.FC<Props> = ({ id, title, shared, user }) => {
+  const navigate = useNavigate();
+
+  function open() {
+    navigate(`/document?id=${id}`);
+  }
+
   return (
     <motion.button
+      onClick={open}
       initial={{ position: "fixed" }}
       transition={{
         type: "spring",
