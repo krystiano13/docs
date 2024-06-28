@@ -99,12 +99,17 @@ export function Document() {
         >
           {
             invites.map(item => (
-              <div onClick={() => cancelInvite(item.id)} key={item.id} className="flex items-center gap-2 justify-between w-full">
+              <motion.div 
+                animate={{ scale: [0.5, 1] }}
+                onClick={() => cancelInvite(item.id)} 
+                key={item.id} 
+                className="flex items-center gap-2 justify-between w-full"
+              >
                 <h3 className="md:text-lg font-medium">{ item.user }</h3>
                 <button className="text-white font-medium hover:bg-red-400 transition-colors bg-red-500 p-2 pl-6 pr-6 rounded-sm">
                   Cancel
                 </button>
-              </div>
+              </motion.div>
             ))
           }
         </motion.div>
