@@ -28,7 +28,8 @@ export function Document() {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
+      if(data.message)
+        getInvites();
     })
   }
 
@@ -52,12 +53,7 @@ export function Document() {
     });
   }
 
-  useEffect(() => {
-    if(!params.get("id")) {
-      navigate('/choose');
-    }
-
-    else {
+  function getInvites() {
       const id = params.get("id") as string;
 
       fetch(`http://127.0.0.1:3000/api/invites/by_doc_id/${id}`, {
@@ -78,6 +74,15 @@ export function Document() {
           setInvites(array);
         }
       })
+  }
+
+  useEffect(() => {
+    if(!params.get("id")) {
+      navigate('/choose');
+    }
+
+    else {
+      getInvites();
     }
   }, []);
 
