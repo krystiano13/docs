@@ -130,6 +130,6 @@ class InviteController < ApplicationController
 
     private 
     def invite_params
-        params.require(:invite).permit(:document_id, :user_id, :role)
+        params.permit(:document_id, :user_id, :role)
     end
 end

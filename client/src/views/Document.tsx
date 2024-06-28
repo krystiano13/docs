@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../contexts/authContext";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -10,6 +10,27 @@ export function Document() {
 
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
+
+  async function sendInvite(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+
+    await formData.append("document_id", params.get("id") as string|Blob);
+    await formData.append("role", "edit");
+    await formData.append("user_id", auth.user?.id as unknown as string|Blob);
+
+    await fetch(`http://127.0.0.1:3000/api/invites`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${auth.user?.token}`
+      },
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+    })
+  }
 
   async function cancelInvite(id: number) {
     await fetch(`http://127.0.0.1:3000/api/invites/${id}`, {
@@ -83,6 +104,7 @@ export function Document() {
           }
         </motion.div>
         <motion.form
+          onSubmit={(e) => sendInvite(e)}
           transition={{
             type: "spring",
             bounce: 0.3,
