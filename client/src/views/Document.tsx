@@ -11,6 +11,25 @@ export function Document() {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
 
+  async function deleteDocument() {
+    await fetch(`http://127.0.0.1:3000/api/documents/${params.get("id") as string}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${auth.user?.token}`
+      }
+    })
+    .then(res => {
+      if(res.ok) {
+        navigate('/');
+      }
+      else {
+        alert("Internal Server Error");
+      }
+
+      return res.json();
+    })
+  }
+
   async function sendInvite(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -156,7 +175,10 @@ export function Document() {
         <button className="w-full text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm">
           Rename Document
         </button>
-        <button className="w-full text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm">
+        <button 
+          onClick={deleteDocument}
+          className="w-full text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm"
+        >
           Delete Document
         </button>
       </motion.section>
