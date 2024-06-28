@@ -11,6 +11,26 @@ export function Document() {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
 
+  async function cancelInvite(id: number) {
+    await fetch(`http://127.0.0.1:3000/api/invites/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${auth.user?.token}`
+      }
+    })
+    .then(res => {
+      if(res.ok) {
+        const invites_arr = [...invites.filter(item => item.id !== id)];
+        setInvites(invites_arr);
+      }
+      else {
+        alert("Server Error");
+      }
+
+      return res.json();
+    });
+  }
+
   useEffect(() => {
     if(!params.get("id")) {
       navigate('/choose');
@@ -53,7 +73,7 @@ export function Document() {
         >
           {
             invites.map(item => (
-              <div key={item.id} className="flex items-center gap-2 justify-between w-full">
+              <div onClick={() => cancelInvite(item.id)} key={item.id} className="flex items-center gap-2 justify-between w-full">
                 <h3 className="md:text-lg font-medium">{ item.user }</h3>
                 <button className="text-white font-medium hover:bg-red-400 transition-colors bg-red-500 p-2 pl-6 pr-6 rounded-sm">
                   Cancel
