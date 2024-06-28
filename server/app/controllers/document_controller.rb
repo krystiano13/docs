@@ -43,11 +43,12 @@ class DocumentController < ApplicationController
 
         if @document.present?
             begin
-                @document.update!(document_params)
+                @document.update(document_params)
 
                 return render json: {
                     message: "Document updated successfully",
-                    document: @document
+                    document: @document,
+                    params: params[:content]
                 }, status: :ok
             rescue
                 return render json: {

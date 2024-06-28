@@ -25,6 +25,7 @@ export function Workspace() {
       })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         if(data.document.content !== "" && data.document.content) {
           setValue(data.document.content);
         }
@@ -32,9 +33,26 @@ export function Workspace() {
     }
   }, []);
 
+  function update(e: unknown) {
+    setValue(e as string);
+    const formData = new FormData();
+    formData.append("content", e as string|Blob);
+    fetch(`http://127.0.0.1:3000/api/documents/${params.get("id")}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${auth.user?.token}`
+      },
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+    })
+  }
+
   return (
     <div className="w-full h-full overflow-x-hidden pt-24 p-6 flex flex-col">
-      <ReactQuill theme="snow" value={value} onChange={setValue} />
+      <ReactQuill theme="snow" value={value} onChange={update} />
     </div>
   );
 }
