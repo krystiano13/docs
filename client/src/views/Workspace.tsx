@@ -45,9 +45,6 @@ export function Workspace() {
       body: formData
     })
     .then(res => res.json())
-    .then(data => {
-      console.log(data);
-    })
   }
 
   return (

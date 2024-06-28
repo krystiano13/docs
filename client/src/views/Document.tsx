@@ -169,7 +169,10 @@ export function Document() {
         id="options"
         className="bg-violet-50 violet-shadow flex flex-col gap-6 items-center justify-center rounded-lg p-6 pt-12 pb-12"
       >
-        <button className="w-full text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm">
+        <button
+          onClick={() => navigate(`/workspace?id=${params.get("id")}`)}
+          className="w-full text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm"
+        >
           Open Document
         </button>
         <button className="w-full text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm">
