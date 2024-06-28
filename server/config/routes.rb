@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "api/documents/:user_id", to: "document#index", as: :documents
+  get "api/documents/get_by_id/:id", to: "document#get_by_id", as: :documents_by_id
   post "api/documents", to: "document#create", as: :documents_create
   patch "api/documents/:id", to: "document#update", as: :documents_update
   delete "api/documents/:id", to: "document#destroy", as: :documents_destroy

@@ -7,6 +7,21 @@ class DocumentController < ApplicationController
         }, status: :ok
     end
 
+    def get_by_id 
+        @document = Document.find(params[:id])
+
+        if @document.present?
+            return render json: {
+                :document => @document
+            }, status: :ok
+        else
+            return render json: {
+                :document => nil,
+                :error => "Document not found"
+            }, status: 404
+        end
+    end
+
     def create
         @document = Document.new(document_params)
 
