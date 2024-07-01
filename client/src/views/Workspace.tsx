@@ -19,11 +19,16 @@ export function Workspace() {
       command: "subscribe",
       identifier: JSON.stringify({
         id: Math.random().toString(36).substring(2,15) + auth.user?.email,
-        channel: "documents_channel"
+        channel: "DocumentsChannel"
       })
     });
 
     socket.send(message);
+  }
+
+  socket.onmessage = function(event) {
+    const data = JSON.parse(event.data);
+    console.log(data);
   }
 
   useEffect(() => {

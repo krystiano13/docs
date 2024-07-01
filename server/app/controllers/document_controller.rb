@@ -39,12 +39,12 @@ class DocumentController < ApplicationController
     end
 
     def update
-        @document = Document.where(id: params[:id])
+        @document = Document.where(params.permit(:id))
+        ActionCable.server.broadcast("documents_channel", { :document => @document })
 
         if @document.present?
             begin
                 @document.update(document_params)
-
                 return render json: {
                     message: "Document updated successfully",
                     document: @document,
