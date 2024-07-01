@@ -3,7 +3,9 @@ import { AuthContext } from "../contexts/authContext";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import debounce from "debounce-basic";
+
+const socketURL: string = "ws://127.0.0.1:3000/cable";
+const socket = new WebSocket(socketURL);
 
 export function Workspace() {
   const [value, setValue] = useState("");
@@ -11,6 +13,18 @@ export function Workspace() {
 
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
+
+  socket.onopen = function() {
+    const message = JSON.stringify({
+      command: "subscribe",
+      identifier: JSON.stringify({
+        id: Math.random().toString(36).substring(2,15) + auth.user?.email,
+        channel: "documents_channel"
+      })
+    });
+
+    socket.send(message);
+  }
 
   useEffect(() => {
     if(!params.get("id")) {
