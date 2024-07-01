@@ -4,7 +4,7 @@ import { useState } from "react";
 interface Props {
   cancel: () => void;
   modal: boolean;
-  create: (e: React.FormEvent<HTMLFormElement>, hide: () => void) => void;
+  create: (e: React.FormEvent<HTMLFormElement>, mode: "add" | "rename" ,hide: () => void) => void;
 }
 
 const variantsDiv = {
@@ -36,7 +36,7 @@ export const AddModal: React.FC<Props> = ({ cancel, modal, create }) => {
     >
       <motion.form
         onSubmit={(e) =>
-          create(e, () => {
+          create(e, "add" ,() => {
             setIsModal(false);
             setTimeout(() => cancel(), 250);
           })
