@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../contexts/authContext";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
@@ -10,11 +10,13 @@ const socket = new WebSocket(socketURL);
 export function Workspace() {
   const [value, setValue] = useState("");
   const [params, setParams] = useSearchParams();
+  
+  const valueRef = useRef<string>("");
 
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
 
-  socket.onopen = function() {
+  useEffect(() => {
     const message = JSON.stringify({
       command: "subscribe",
       identifier: JSON.stringify({
@@ -23,13 +25,23 @@ export function Workspace() {
       })
     });
 
+    console.log("Dziala")
+
     socket.send(message);
+  }, []);
+
+  socket.onmessage = async function(event) {
+    const data = JSON.parse(event.data);
+    const document = data.message.document[0];
+   
+    if(document.id === Number(params.get("id"))) {
+      setValue(document.content);
+    }
   }
 
-  socket.onmessage = function(event) {
-    const data = JSON.parse(event.data);
-    console.log(data);
-  }
+  useEffect(() => {
+    valueRef.current = value;
+  }, [value]) 
 
   useEffect(() => {
     if(!params.get("id")) {
@@ -53,7 +65,7 @@ export function Workspace() {
   }, []);
 
   function update(e: unknown) {
-    setValue(e as string);
+    valueRef.current = e as string;
     const formData = new FormData();
     formData.append("content", e as string|Blob);
     fetch(`http://127.0.0.1:3000/api/documents/${params.get("id")}`, {
