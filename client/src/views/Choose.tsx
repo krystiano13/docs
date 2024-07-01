@@ -15,9 +15,7 @@ export function Choose() {
 
   async function createDocument(
     e: React.FormEvent<HTMLFormElement>,
-    mode: "add" | "rename",
     hide: () => void,
-    id?: number
   ) {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -26,8 +24,8 @@ export function Choose() {
     await formData.append("content", "" as string | Blob);
     await formData.append("username", auth.user?.email as string | Blob);
 
-    await fetch(`http://127.0.0.1:3000/api/documents${mode === "add" ? "" : `?id=${id}`}`, {
-      method: mode === "add" ? "POST" : "PATCH",
+    await fetch(`http://127.0.0.1:3000/api/documents`, {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${auth.user?.token}`,
       },
@@ -40,26 +38,15 @@ export function Choose() {
         console.log(data);
         if (data.document) {
           hide();
-          if(mode === "add") {
-            setFiles([
-              ...files,
-              {
-                id: data.document.id,
-                name: data.document.name,
-                shared: false,
-                user: auth.user?.email,
-              },
-            ]);
-          }
-          else {
-            const files_array = [...files];
-            files_array.forEach(item => {
-              if(item.id === id) {
-                item.name == formData.get("name")
-              }
-            });
-            setFiles(files_array);
-          }
+          setFiles([
+            ...files,
+            {
+              id: data.document.id,
+              name: data.document.name,
+              shared: false,
+              user: auth.user?.email,
+            },
+          ]);
         } else {
           alert("Something went wrong");
         }

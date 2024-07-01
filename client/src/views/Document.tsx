@@ -2,14 +2,39 @@ import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../contexts/authContext";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { AddModal } from "../components/AddModal";
 import type { Invite } from "../types";
 
 export function Document() {
   const [invites, setInvites] = useState<Invite[]>([]);
   const [params, setParams] = useSearchParams();
+  const [modal, setModal] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
+
+  async function renameDocument(  
+    e: React.FormEvent<HTMLFormElement>,
+    hide: () => void
+  ) {
+    e.preventDefault();
+    const form_data = new FormData(e.target as HTMLFormElement);
+
+    await fetch(`http://127.0.0.1:3000/api/documents/${params.get("id")}`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${auth.user?.token}`
+      },
+      body: form_data
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(data.message) {
+        alert("Document renamed !")
+        hide();
+      }
+    })
+  }
 
   async function deleteDocument() {
     await fetch(`http://127.0.0.1:3000/api/documents/${params.get("id") as string}`, {
@@ -106,7 +131,16 @@ export function Document() {
   }, []);
 
   return (
-    <div className="overflow-x-hidden w-[100vw] min-h-[100vh] flex flex-col md:flex-row justify-center gap-6 md:gap-0 md:justify-around items-center">
+    <>
+      {
+        modal &&
+        <AddModal 
+          modal={modal}
+          create={renameDocument} 
+          cancel={() => setModal(false)}
+        />
+      }
+      <div className="overflow-x-hidden w-[100vw] min-h-[100vh] flex flex-col md:flex-row justify-center gap-6 md:gap-0 md:justify-around items-center">
       <section
         id="invites"
         className="w-[90vw] md:w-2/5 max-h-[50vh] flex flex-col gap-6"
@@ -175,7 +209,7 @@ export function Document() {
         >
           Open Document
         </button>
-        <button className="w-full text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm">
+        <button onClick={() => setModal(prev => !prev)} className="w-full text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm">
           Rename Document
         </button>
         <button 
@@ -186,5 +220,6 @@ export function Document() {
         </button>
       </motion.section>
     </div>
+    </>
   );
 }
