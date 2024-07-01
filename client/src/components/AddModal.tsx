@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 interface Props {
   cancel: () => void;
   modal: boolean;
-  create: (e: React.FormEvent<HTMLFormElement> ,hide: () => void) => void;
+  create: (e: React.FormEvent<HTMLFormElement>,hide: () => void) => void;
 }
 
 const variantsDiv = {
@@ -66,7 +66,7 @@ export const AddModal: React.FC<Props> = ({ cancel, modal, create }) => {
           className="text-white font-medium hover:bg-violet-400 transition-colors bg-violet-500 p-2 pl-6 pr-6 rounded-sm"
           type="submit"
         >
-          Create
+          { params.get("name") ? "Rename" : "Create" }
         </button>
         <button
           type="button"
