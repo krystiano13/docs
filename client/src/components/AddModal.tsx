@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 interface Props {
   cancel: () => void;
@@ -27,6 +28,7 @@ const variantsForm = {
 
 export const AddModal: React.FC<Props> = ({ cancel, modal, create }) => {
   const [isModal, setIsModal] = useState<boolean>(modal);
+  const [params, setParams] = useSearchParams();
   return (
     <motion.div
       initial={isModal ? { opacity: 0 } : { opacity: 1 }}
@@ -56,6 +58,7 @@ export const AddModal: React.FC<Props> = ({ cancel, modal, create }) => {
           name="name"
           required
           type="text"
+          defaultValue={params.get("name") ? params.get("name") as string : ""}
           placeholder="Document Title"
           className="text-lg transition p-2 focus:border-b-violet-300 border-b-violet-400 border-b-2 border-b-solid outline-none"
         />

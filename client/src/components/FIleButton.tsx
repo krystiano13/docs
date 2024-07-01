@@ -12,7 +12,7 @@ export const FileButton: React.FC<Props> = ({ id, title, shared, user }) => {
   const navigate = useNavigate();
 
   function open() {
-    navigate(`/document?id=${id}`);
+    navigate(`/document?id=${id}&name=${title}`);
   }
 
   return (
