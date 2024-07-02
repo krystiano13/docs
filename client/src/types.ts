@@ -5,6 +5,8 @@ export interface Invite {
   role: string;
   title: string;
   user: string;
+  owner_id: number;
+  owner_name: string;
 }
 
 export interface File {

@@ -30,7 +30,8 @@ export function Invites() {
                 document_id: item.document_id,
                 role: item.role,
                 title: `Invite #${item.id}`,
-                user: data.user.email,
+                user: item.owner_name,
+                owner_id: item.owner_id
               });
             });
             setInvites(array);

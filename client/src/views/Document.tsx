@@ -62,6 +62,8 @@ export function Document() {
     await formData.append("document_id", params.get("id") as string|Blob);
     await formData.append("role", "edit");
     await formData.append("user_id", auth.user?.id as unknown as string|Blob);
+    await formData.append("username", formData.get("email") as string|Blob);
+    await formData.append("owner_id", auth.user?.id as unknown as string|Blob);
 
     await fetch(`http://127.0.0.1:3000/api/invites`, {
       method: "POST",
@@ -181,7 +183,7 @@ export function Document() {
             className="text-lg transition p-2 focus:border-b-violet-300 border-b-violet-400 border-b-2 border-b-solid outline-none"
             type="email"
             required
-            name="username"
+            name="email"
             placeholder="User Email"
           />
           <button

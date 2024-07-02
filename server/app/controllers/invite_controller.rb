@@ -1,10 +1,26 @@
 class InviteController < ApplicationController
     def index
         @invites = Invite.where(user_id: params[:user_id])
+
+        new_arr = Array.new
+
+        @invites.each do |invite|
+            new_arr.unshift({
+                :id => invite.id,
+                :created_at => invite.created_at,
+                :updated_at => invite.updated_at,
+                :accepted => invite.accepted,
+                :owner_id => invite.owner_id,
+                :user_id => invite.user_id,
+                :document_id => invite.document_id,
+                :role => invite.role,
+                :owner_name => User.find_by(id: invite.owner_id).email
+            })
+        end
         
         if @invites.present?
             return render json: {
-                :invites => @invites,
+                :invites => new_arr,
             }, status: :ok
         else
             return render json: {
@@ -41,10 +57,11 @@ class InviteController < ApplicationController
     end
     
     def create
-        @user = User.find_by(email: params[:username]);
+        @user = User.find_by(email: params[:email]);
         @invite = Invite.new(invite_params)
 
         @invite.user_id = @user.id
+        @invite.owner_id = params[:owner_id]
 
         begin
             @invite.save!
