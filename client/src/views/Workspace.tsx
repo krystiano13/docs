@@ -32,11 +32,14 @@ export function Workspace() {
 
   socket.onmessage = async function(event) {
     const data = JSON.parse(event.data);
-    const document = data.message.document[0];
+    console.log(data)
+    if(data.message) {
+      const document = data.message.document[0];
    
-    if(document.username !== auth.user?.email) {
-      if(document.id === Number(params.get("id"))) {
-        setValue(document.content);
+      if(document.username !== auth.user?.email) {
+        if(document.id === Number(params.get("id"))) {
+          setValue(document.content);
+        }
       }
     }
   }
