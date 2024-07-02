@@ -181,7 +181,7 @@ export function Document() {
             className="text-lg transition p-2 focus:border-b-violet-300 border-b-violet-400 border-b-2 border-b-solid outline-none"
             type="email"
             required
-            name="email"
+            name="username"
             placeholder="User Email"
           />
           <button

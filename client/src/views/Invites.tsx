@@ -11,7 +11,7 @@ export function Invites() {
 
   useEffect(() => {
     if (auth.user) {
-      fetch(`http://localhost:3000/api/invites/1`, {
+      fetch(`http://localhost:3000/api/invites/${auth.user.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export function Invites() {
                 user_id: item.user_id,
                 document_id: item.document_id,
                 role: item.role,
-                title: data.document.name,
+                title: `Invite #${item.id}`,
                 user: data.user.email,
               });
             });
