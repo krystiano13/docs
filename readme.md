@@ -7,3 +7,8 @@
 * Typescript
 * TailwindCSS
 * Framer Motion
+
+## Features
+* Realtime editing with multiple users via websocket
+* Authentication system
+* Invitation and Sharing system
