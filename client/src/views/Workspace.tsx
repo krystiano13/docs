@@ -24,25 +24,26 @@ export function Workspace() {
         channel: "DocumentsChannel"
       })
     });
-
-    console.log("Dziala")
-
     socket.send(message);
-  }, []);
 
-  socket.onmessage = async function(event) {
-    const data = JSON.parse(event.data);
-    console.log(data)
-    if(data.message) {
-      const document = data.message.document[0];
-   
-      if(document.username !== auth.user?.email) {
-        if(document.id === Number(params.get("id"))) {
-          setValue(document.content);
+    socket.onmessage = async function(event) {
+      const data = JSON.parse(event.data);
+      console.log(data)
+      if(data.message) {
+        const document = data.message.document[0];
+     
+        if(document.username !== auth.user?.email) {
+          if(document.id === Number(params.get("id"))) {
+            setValue(document.content);
+          }
         }
       }
     }
-  }
+
+    return () => {
+      socket.close();
+    }
+  }, []);
 
   useEffect(() => {
     valueRef.current = value;
